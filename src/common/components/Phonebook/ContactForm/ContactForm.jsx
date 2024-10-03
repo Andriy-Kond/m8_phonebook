@@ -6,11 +6,11 @@ export default function ContactForm({
   handleContact,
 }) {
   const [name, setName] = useState(contact.name ?? "");
-  const [phone, setPhone] = useState(contact.phone ?? "");
+  const [number, setNumber] = useState(contact.number ?? "");
 
   const clearState = () => {
     setName("");
-    setPhone("");
+    setNumber("");
   };
 
   const modifyContact = e => {
@@ -20,8 +20,8 @@ export default function ContactForm({
       case "name":
         return setName(value);
 
-      case "phone":
-        return setPhone(value);
+      case "number":
+        return setNumber(value);
 
       default:
         throw new Error(`Cannot to process the case of ${name}`);
@@ -32,7 +32,7 @@ export default function ContactForm({
     <>
       <form
         onSubmit={e => {
-          handleContact(e, name, phone);
+          handleContact(e, name, number);
           clearState();
         }}>
         <label>
@@ -50,9 +50,9 @@ export default function ContactForm({
           Telephone
           <input
             type="tel"
-            name="phone"
+            name="number"
             required
-            value={phone}
+            value={number}
             onChange={modifyContact}
           />
         </label>

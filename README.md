@@ -1,46 +1,30 @@
-# Getting Started with Create React App and Redux
+# Книга контактів
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+Додай у програму «Книга контактів» можливість реєстрації, логіна та оновлення користувача, а також роботу з приватною колекцією контактів.
 
-## Available Scripts
+## Бекенд
 
-In the project directory, you can run:
+Для цього завдання є готовий бекенд. Ознайомся з [документацією](https://connections-api.goit.global/docs/). Він підтримує всі необхідні операції з колекцією контактів, а також реєстрацію, логін та оновлення користувача за допомогою JWT. Використовуй його замість твого бекенда створеного через сервіс `mockapi.io`.
 
-### `npm start`
+## Маршрутизація
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Додай маршрутизацію з бібліотекою React Router. У програмі має бути кілька сторінок:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- `/register` - публічний маршрут реєстрації нового користувача з формою
+- `/login` - публічний маршрут логіна існуючого користувача з формою
+- `/contacts` - приватний маршрут для роботи зі списком контактів користувача
 
-### `npm test`
+Додай компонент навігації `Navigation` з посиланнями для переходу по маршрутах.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Меню користувача
 
-### `npm run build`
+Створи компонент `UserMenu`, що відображає пошту користувача і кнопку виходу з облікового запису. Ось як може виглядати його розмітка.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    <div>
+      <p>mango@mail.com</p>
+      <button>Logout</button>
+    </div>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Стилізація
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Це фінальна версія програми, тому попрацюй над оформленням інтерфейсу. Можна використовувати бібліотеку стилізації або компонентів, наприклад [Chakra](https://chakra-ui.com/) UI або [Material UI](https://mui.com/).

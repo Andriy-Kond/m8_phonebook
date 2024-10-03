@@ -10,9 +10,9 @@ export default function AddContact() {
   const [addContact] = useAddContactMutation();
   const { data: contacts } = useGetAllContactsQuery();
 
-  const handleAddContact = (e, name, phone) => {
+  const handleAddContact = (e, name, number) => {
     e.preventDefault();
-    const newContact = { name, phone };
+    const newContact = { name, number };
 
     const isExistContact = contacts.find(contact => contact.name === name);
     isExistContact

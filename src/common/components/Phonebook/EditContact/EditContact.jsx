@@ -6,9 +6,9 @@ export default function EditContact({ contact, toggleModal }) {
 
   const modifyContact = contact => editContact(contact);
 
-  const handleEditContact = (e, name, phone) => {
+  const handleEditContact = (e, name, number) => {
     e.preventDefault();
-    const newContact = { ...contact, name, phone };
+    const newContact = { ...contact, name, number };
     modifyContact(newContact);
     toggleModal();
   };

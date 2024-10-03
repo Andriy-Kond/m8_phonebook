@@ -9,7 +9,16 @@ import Modal from "common/components/Phonebook/Modal";
 import EditContact from "common/components/Phonebook/EditContact";
 
 export default function ContactList() {
-  const { data: contacts } = useGetAllContactsQuery();
+  const {
+    data: contacts,
+    isFetching,
+    isLoading,
+  } = useGetAllContactsQuery("", {
+    // pollingInterval: 3000,
+    // skip: false,
+    // refetchOnMountOrArgChange: true,
+    // refetchOnFocus: true,
+  });
   const [deleteContact] = useDeleteContactMutation();
   const filter = useSelector(selectFilters);
 
@@ -30,27 +39,30 @@ export default function ContactList() {
 
   return (
     <>
-      <ul>
-        {visibleContacts?.map(contact => {
-          return (
-            <li key={contact.id}>
-              <p>
-                {contact.name}: {contact.phone}
-              </p>
-              <button onClick={() => removeContact(contact.id)}>Delete</button>
+      {!isFetching && (
+        <ul>
+          {visibleContacts?.map(contact => {
+            return (
+              <li key={contact.id}>
+                <p>
+                  {contact.name}: {contact.number}
+                </p>
+                <button onClick={() => removeContact(contact.id)}>
+                  Delete
+                </button>
 
-              <button
-                type="button"
-                onClick={() => {
-                  toggleModal(contact);
-                }}>
-                Edit
-              </button>
-            </li>
-          );
-        })}
-      </ul>
-
+                <button
+                  type="button"
+                  onClick={() => {
+                    toggleModal(contact);
+                  }}>
+                  Edit
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      )}
       {isOpenModal && (
         <Modal toggleModal={toggleModal}>
           <EditContact contact={contactForEdit} toggleModal={toggleModal} />
