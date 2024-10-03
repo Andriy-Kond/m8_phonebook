@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Link, Outlet } from "react-router-dom";
 
 export default function SharedLayout() {
@@ -6,10 +7,12 @@ export default function SharedLayout() {
       <main>
         <nav style={{ display: "flex", gap: "20px" }}>
           <Link to="/">Home Page</Link>
-          <Link to="/login">Login Page</Link>
+          <Link to="/contacts">Contacts Page</Link>
         </nav>
 
-        <Outlet />
+        <Suspense fallback={<div>Loading...</div>}>
+          <Outlet />
+        </Suspense>
       </main>
     </>
   );
