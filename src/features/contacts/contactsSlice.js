@@ -1,15 +1,16 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+// old backend: https://66f3151c71c84d805877c872.mockapi.io
+// new backend: https://connections-api.goit.global
 // Contact schema:
 // {
 // id	string
 // name*	string
 // number*	string
 // }
-// https://connections-api.goit.global
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "https://66f3151c71c84d805877c872.mockapi.io",
+  baseUrl: "https://connections-api.goit.global",
   // prepareHeaders: (headers, { getState }) => {
   //   const token = getState().auth.token;
 

@@ -1,1 +1,3 @@
 export const selectFilters = state => state.filters.status;
+export const selectUserIsLoggedIn = state => state.auth.isLoggedIn;
+export const selectUserName = state => state.auth.user.name;

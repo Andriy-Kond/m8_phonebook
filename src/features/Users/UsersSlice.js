@@ -1,6 +1,50 @@
+import { createSlice } from "@reduxjs/toolkit";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-// User schema:
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+
+export const userAuthSlice = createSlice({
+  name: "auth",
+  initialState: {
+    userToken: null,
+    user: { name: null, email: null },
+    isLoggedIn: false,
+  },
+  reducers: {
+    setUserToken: (state, action) => {
+      state.userToken = action.payload;
+    },
+
+    getUserToken: state => {
+      return state.userToken;
+    },
+
+    setUserCredentials: (state, action) => {
+      state.user = action.payload;
+    },
+
+    setIsLoggedIn: state => {
+      state.isLoggedIn = true;
+    },
+  },
+});
+
+const persistConfig = {
+  key: "userToken",
+  storage,
+  whitelist: ["userToken"],
+};
+
+export const persistedUserAuthReducer = persistReducer(
+  persistConfig,
+  userAuthSlice.reducer,
+);
+
+export const { setUserToken, getUserToken, setUserCredentials, setIsLoggedIn } =
+  userAuthSlice.actions;
+
+// Base User schema:
 // {
 // id	string
 // name*	string
@@ -10,43 +54,40 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "https://connections-api.goit.global",
-  // prepareHeaders: (headers, { getState }) => {
-  //   const token = getState().auth.token;
+  prepareHeaders: (headers, { getState }) => {
+    const token = getState().auth.userToken;
+    console.log("token:::", token);
 
-  //   // If we have a token set in state, let's assume that we should be passing it.
-  //   if (token) {
-  //     headers.set("authorization", `Bearer ${token}`);
-  //   }
+    if (token) {
+      headers.set("authorization", `Bearer ${token}`);
+    }
 
-  //   return headers;
-  // },
+    return headers;
+  },
 });
 
 export const usersApi = createApi({
   reducerPath: "usersApi",
   baseQuery,
   endpoints: build => ({
-    getUserCredentials: build.query({
-      query: () => `/users/current`,
-      // transformResponse: response => response.data,
-      // transformErrorResponse: response => response.status,
-      providesTags: ["Users"],
-    }),
-
     signupUser: build.mutation({
-      query: user => ({
-        url: `/users/signup`,
-        method: "POST",
-        body: user,
-        // user body schema:
-        // {
-        //   "name": "Adrian Cross",
-        //   "email": "across@mail.com",
-        //   "password": "examplepwd12345"
-        // }
-      }),
+      query: user => {
+        console.log("user:::", user);
 
-      invalidatesTags: ["Users"],
+        return {
+          url: `/users/signup`,
+          method: "POST",
+          body: user,
+          // user body schema:
+          // {
+          //   "name": "Adrian Cross",
+          //   "email": "across@mail.com",
+          //   "password": "examplepwd12345"
+          // }
+        };
+      },
+
+      invalidatesTags: ["User"],
     }),
 
     loginUser: build.mutation({
@@ -61,7 +102,7 @@ export const usersApi = createApi({
         // }
       }),
 
-      invalidatesTags: ["Users"],
+      invalidatesTags: ["User"],
     }),
 
     logoutUser: build.mutation({
@@ -70,14 +111,21 @@ export const usersApi = createApi({
         method: "POST",
       }),
 
-      invalidatesTags: ["Users"],
+      invalidatesTags: ["User"],
+    }),
+
+    getUserCredentials: build.query({
+      query: () => `/users/current`,
+      // transformResponse: response => response.data,
+      // transformErrorResponse: response => response.status,
+      providesTags: ["User"],
     }),
   }),
 });
 
 export const {
-  useGetAllUsersQuery,
-  useAddContactMutation,
-  useDeleteContactMutation,
-  useEditContactMutation,
+  useSignupUserMutation,
+  useLoginUserMutation,
+  useLogoutUserMutation,
+  useGetUserCredentialsQuery,
 } = usersApi;
