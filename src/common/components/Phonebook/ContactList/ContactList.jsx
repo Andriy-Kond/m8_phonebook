@@ -16,9 +16,10 @@ export default function ContactList() {
   } = useGetAllContactsQuery("", {
     // pollingInterval: 3000,
     // skip: false,
-    // refetchOnMountOrArgChange: true,
+    refetchOnMountOrArgChange: true,
     // refetchOnFocus: true,
   });
+
   const [deleteContact] = useDeleteContactMutation();
   const filter = useSelector(selectFilters);
 

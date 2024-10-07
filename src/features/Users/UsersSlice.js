@@ -8,7 +8,6 @@ export const userAuthSlice = createSlice({
   name: "auth",
   initialState: {
     userToken: null,
-    user: { name: null, email: null },
     isLoggedIn: false,
   },
   reducers: {
@@ -16,16 +15,8 @@ export const userAuthSlice = createSlice({
       state.userToken = action.payload;
     },
 
-    getUserToken: state => {
-      return state.userToken;
-    },
-
-    setUserCredentials: (state, action) => {
-      state.user = action.payload;
-    },
-
-    setIsLoggedIn: state => {
-      state.isLoggedIn = true;
+    setIsLoggedIn: (state, action) => {
+      state.isLoggedIn = action.payload;
     },
   },
 });
@@ -41,22 +32,12 @@ export const persistedUserAuthReducer = persistReducer(
   userAuthSlice.reducer,
 );
 
-export const { setUserToken, getUserToken, setUserCredentials, setIsLoggedIn } =
-  userAuthSlice.actions;
-
-// Base User schema:
-// {
-// id	string
-// name*	string
-// email*	string
-// password*	string
-// }
+export const { setUserToken, setIsLoggedIn } = userAuthSlice.actions;
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "https://connections-api.goit.global",
   prepareHeaders: (headers, { getState }) => {
     const token = getState().auth.userToken;
-    console.log("token:::", token);
 
     if (token) {
       headers.set("authorization", `Bearer ${token}`);
@@ -71,21 +52,11 @@ export const usersApi = createApi({
   baseQuery,
   endpoints: build => ({
     signupUser: build.mutation({
-      query: user => {
-        console.log("user:::", user);
-
-        return {
-          url: `/users/signup`,
-          method: "POST",
-          body: user,
-          // user body schema:
-          // {
-          //   "name": "Adrian Cross",
-          //   "email": "across@mail.com",
-          //   "password": "examplepwd12345"
-          // }
-        };
-      },
+      query: user => ({
+        url: `/users/signup`,
+        method: "POST",
+        body: user,
+      }),
 
       invalidatesTags: ["User"],
     }),
@@ -95,11 +66,6 @@ export const usersApi = createApi({
         url: `/users/login`,
         method: "POST",
         body: user,
-        // user body schema:
-        // {
-        //   "email": "string",
-        //   "password": "string"
-        // }
       }),
 
       invalidatesTags: ["User"],
@@ -111,14 +77,22 @@ export const usersApi = createApi({
         method: "POST",
       }),
 
+      refetchOnReconnect: true,
+      refetchOnMountOrArgChange: true,
+
       invalidatesTags: ["User"],
     }),
 
-    getUserCredentials: build.query({
-      query: () => `/users/current`,
-      // transformResponse: response => response.data,
-      // transformErrorResponse: response => response.status,
-      providesTags: ["User"],
+    getUserByToken: build.query({
+      query: () => ({
+        url: `/users/current`,
+        method: "GET",
+        // transformResponse: response => response.data,
+        // transformErrorResponse: response => response.status,
+        refetchOnReconnect: true,
+        refetchOnMountOrArgChange: true,
+        providesTags: ["User"],
+      }),
     }),
   }),
 });
@@ -127,5 +101,5 @@ export const {
   useSignupUserMutation,
   useLoginUserMutation,
   useLogoutUserMutation,
-  useGetUserCredentialsQuery,
+  useGetUserByTokenQuery,
 } = usersApi;

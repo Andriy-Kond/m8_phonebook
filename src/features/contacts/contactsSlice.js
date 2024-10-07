@@ -11,16 +11,15 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: "https://connections-api.goit.global",
-  // prepareHeaders: (headers, { getState }) => {
-  //   const token = getState().auth.token;
+  prepareHeaders: (headers, { getState }) => {
+    const token = getState().auth.userToken;
 
-  //   // If we have a token set in state, let's assume that we should be passing it.
-  //   if (token) {
-  //     headers.set("authorization", `Bearer ${token}`);
-  //   }
+    if (token) {
+      headers.set("authorization", `Bearer ${token}`);
+    }
 
-  //   return headers;
-  // },
+    return headers;
+  },
 });
 
 export const contactsApi = createApi({
@@ -57,7 +56,7 @@ export const contactsApi = createApi({
       query: contact => ({
         url: `/contacts/${contact.id}`,
         method: "PATCH",
-        body: contact,
+        body: { name: contact.name, number: contact.number },
       }),
 
       invalidatesTags: ["Contacts"],
