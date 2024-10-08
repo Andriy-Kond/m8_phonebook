@@ -16,7 +16,7 @@ export default function LoginPage() {
   const [loginUser] = useLoginUserMutation();
 
   const { data, isFetching, refetch } = useGetUserByTokenQuery(undefined, {
-    skip: !authUserToken, // Пропускає запит, якщо токен відсутній
+    skip: !authUserToken,
   });
 
   const submitCredentials = async e => {

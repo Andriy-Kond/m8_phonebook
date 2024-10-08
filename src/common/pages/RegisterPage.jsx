@@ -13,7 +13,19 @@ export default function RegisterPage() {
 
     const result = await signupUser(userCredentials);
 
-    dispatch(setUserToken(result.data.token));
+    if (result.error) {
+      if (result.error.data.message) {
+        console.log("result.error.message", result.error.data.message);
+      }
+
+      if (result.error.data?.keyValue?.email) {
+        console.log(
+          `submitCredentials >> error problem::: email ${result.error.data.keyValue.email}already exist in this DB`,
+        );
+      }
+    } else {
+      dispatch(setUserToken(result.data.token));
+    }
   };
 
   return (

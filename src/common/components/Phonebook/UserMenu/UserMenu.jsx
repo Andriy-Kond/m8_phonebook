@@ -12,11 +12,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 export default function UserMenu() {
   const authUserToken = useSelector(selectUserToken);
-
   const { data: userCredentials = [] } = useGetUserByTokenQuery(undefined, {
     skip: !authUserToken,
-    refetchOnReconnect: true,
-    refetchOnMountOrArgChange: true,
   });
 
   const [logoutUser] = useLogoutUserMutation();

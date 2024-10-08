@@ -22,7 +22,7 @@ export const userAuthSlice = createSlice({
 });
 
 const persistConfig = {
-  key: "userToken",
+  key: "authUserToken",
   storage,
   whitelist: ["userToken"],
 };
@@ -89,10 +89,10 @@ export const usersApi = createApi({
         method: "GET",
         // transformResponse: response => response.data,
         // transformErrorResponse: response => response.status,
-        refetchOnReconnect: true,
-        refetchOnMountOrArgChange: true,
-        providesTags: ["User"],
       }),
+      // refetchOnReconnect: true,
+      providesTags: ["User"], // providesTags лише створює додатковий запит після logoutUser(). Сенсу в ньому тут не бачу.
+      // Можливо краще просто залишити лише використання очищення Redux стану після logoutUser() за допомогою resetApiState(): dispatch(usersApi.util.resetApiState());
     }),
   }),
 });

@@ -14,13 +14,11 @@ const LoginPage = lazy(() => import("common/pages/LoginPage"));
 const NotFoundPage = lazy(() => import("common/pages/NotFoundPage"));
 
 export default function App() {
-  const authUserToken = useSelector(selectUserToken);
-
-  const { isSuccess } = useGetUserByTokenQuery(undefined, {
-    skip: !authUserToken,
-  });
-
   const dispatch = useDispatch();
+  const authUserToken = useSelector(selectUserToken);
+  const { isSuccess } = useGetUserByTokenQuery(undefined, {
+    skip: !authUserToken, // Пропускає запит, якщо токен відсутній
+  });
 
   useEffect(() => {
     if (isSuccess) {
@@ -29,6 +27,7 @@ export default function App() {
       dispatch(setIsLoggedIn(false));
     }
   }, [dispatch, isSuccess]);
+
   return (
     <>
       <Routes>
