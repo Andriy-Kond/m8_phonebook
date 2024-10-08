@@ -1,14 +1,23 @@
+import { selectUserToken } from "app/selectors";
 import {
   setIsLoggedIn,
+  setUserToken,
   useGetUserByTokenQuery,
   useLogoutUserMutation,
+  usersApi,
 } from "features/Users/UsersSlice";
 
 import avatar from "imgs/pending-cat.jpg";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function UserMenu() {
-  const { data: userCredentials = [], refetch } = useGetUserByTokenQuery();
+  const authUserToken = useSelector(selectUserToken);
+
+  const { data: userCredentials = [] } = useGetUserByTokenQuery(undefined, {
+    skip: !authUserToken,
+    refetchOnReconnect: true,
+    refetchOnMountOrArgChange: true,
+  });
 
   const [logoutUser] = useLogoutUserMutation();
 
@@ -17,16 +26,23 @@ export default function UserMenu() {
   const handleLogout = async () => {
     await logoutUser();
     dispatch(setIsLoggedIn(false));
-    refetch();
+    dispatch(setUserToken(null));
+
+    dispatch(usersApi.util.resetApiState()); // очистити стан Redux від старих даних (user, email)
   };
 
   return (
-    <div style={{ display: "flex", gap: "10px" }}>
-      <img src={avatar} alt="user avatar" width={32} />
-      <span>Wellcome, {userCredentials.name}</span>
-      <button type="button" onClick={handleLogout}>
-        Logout
-      </button>
-    </div>
+    <>
+      {/* Умова userCredentials.name необхідно, щоб span не блимав при завантаженні користувача */}
+      {userCredentials.name && (
+        <div style={{ display: "flex", gap: "10px" }}>
+          <img src={avatar} alt="user avatar" width={32} />
+          <span>Wellcome, {userCredentials.name}</span>
+          <button type="button" onClick={handleLogout}>
+            Logout
+          </button>
+        </div>
+      )}
+    </>
   );
 }

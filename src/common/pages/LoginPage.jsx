@@ -5,18 +5,19 @@ import {
   useGetUserByTokenQuery,
   useLoginUserMutation,
 } from "features/Users/UsersSlice";
+import { selectUserToken } from "app/selectors";
 
 export default function LoginPage() {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
 
-  const userToken = useSelector(state => state.auth.userToken);
+  const authUserToken = useSelector(selectUserToken);
+
   const [loginUser] = useLoginUserMutation();
 
-  const { data, isSuccess, isFetching, refetch, error } =
-    useGetUserByTokenQuery({
-      skip: !userToken, // Пропускає запит, якщо токен відсутній
-    });
+  const { data, isFetching, refetch } = useGetUserByTokenQuery(undefined, {
+    skip: !authUserToken, // Пропускає запит, якщо токен відсутній
+  });
 
   const submitCredentials = async e => {
     e.preventDefault();
@@ -28,7 +29,7 @@ export default function LoginPage() {
       const result = await loginUser(userCredentials);
       dispatch(setUserToken(result?.data.token));
       dispatch(setIsLoggedIn(true));
-      refetch(); // Змушує RTK Query, а саме - getUserByToken зі стану RTK Query робити повторний запит до серверу після логіна
+      // refetch(); // Змушує RTK Query, а саме - getUserByToken зі стану RTK Query робити повторний запит до серверу після логіна
     } catch (err) {
       dispatch(setIsLoggedIn(false));
       console.log("submitCredentials >> err:::", err);

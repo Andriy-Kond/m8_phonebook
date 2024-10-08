@@ -3,9 +3,10 @@ import AuthNav from "common/components/Phonebook/AuthNav";
 import UserMenu from "common/components/Phonebook/UserMenu";
 
 import { useSelector } from "react-redux";
+import { selectUserIsLoggedIn } from "app/selectors";
 
 export default function AppBar() {
-  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+  const isLoggedIn = useSelector(selectUserIsLoggedIn);
 
   return (
     <nav
@@ -16,8 +17,7 @@ export default function AppBar() {
       }}>
       <Navigation />
 
-      {!isLoggedIn && <AuthNav />}
-      {isLoggedIn && <UserMenu />}
+      {isLoggedIn ? <UserMenu /> : <AuthNav />}
     </nav>
   );
 }

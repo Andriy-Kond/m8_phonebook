@@ -5,7 +5,8 @@ import {
   setIsLoggedIn,
   useGetUserByTokenQuery,
 } from "features/Users/UsersSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUserToken } from "./selectors";
 
 const ContactsPage = lazy(() => import("common/pages/ContactsPage"));
 const RegisterPage = lazy(() => import("common/pages/RegisterPage"));
@@ -13,15 +14,21 @@ const LoginPage = lazy(() => import("common/pages/LoginPage"));
 const NotFoundPage = lazy(() => import("common/pages/NotFoundPage"));
 
 export default function App() {
-  const { error } = useGetUserByTokenQuery();
+  const authUserToken = useSelector(selectUserToken);
+
+  const { isSuccess } = useGetUserByTokenQuery(undefined, {
+    skip: !authUserToken,
+  });
+
   const dispatch = useDispatch();
+
   useEffect(() => {
-    if (error) {
-      dispatch(setIsLoggedIn(false));
-    } else {
+    if (isSuccess) {
       dispatch(setIsLoggedIn(true));
+    } else {
+      dispatch(setIsLoggedIn(false));
     }
-  }, [dispatch, error]);
+  }, [dispatch, isSuccess]);
   return (
     <>
       <Routes>
