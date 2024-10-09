@@ -16,6 +16,7 @@ const NotFoundPage = lazy(() => import("common/pages/NotFoundPage"));
 export default function App() {
   const dispatch = useDispatch();
   const authUserToken = useSelector(selectUserToken);
+
   const { isSuccess } = useGetUserByTokenQuery(undefined, {
     skip: !authUserToken, // Пропускає запит, якщо токен відсутній
   });

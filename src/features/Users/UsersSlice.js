@@ -80,7 +80,8 @@ export const usersApi = createApi({
       refetchOnReconnect: true,
       refetchOnMountOrArgChange: true,
 
-      invalidatesTags: ["User"],
+      // invalidatesTags: ["User"],
+      // Після виходу (UserMenu - handleLogout) я очищую стан за допомогою resetApiState(). Тому інвалідувати залежність тут не потрібно. Вона лише викликає додаткові запити на сервер після виходу. А вони не потрібні.
     }),
 
     getUserByToken: build.query({
@@ -90,9 +91,9 @@ export const usersApi = createApi({
         // transformResponse: response => response.data,
         // transformErrorResponse: response => response.status,
       }),
+
       // refetchOnReconnect: true,
-      providesTags: ["User"], // providesTags лише створює додатковий запит після logoutUser(). Сенсу в ньому тут не бачу.
-      // Можливо краще просто залишити лише використання очищення Redux стану після logoutUser() за допомогою resetApiState(): dispatch(usersApi.util.resetApiState());
+      providesTags: ["User"],
     }),
   }),
 });
