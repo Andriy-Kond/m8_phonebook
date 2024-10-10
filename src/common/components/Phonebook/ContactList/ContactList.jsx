@@ -5,15 +5,11 @@ import {
 } from "features/contacts/contactsSlice";
 import { selectFilters } from "app/selectors";
 import { useState } from "react";
-import Modal from "common/components/Phonebook/Modal";
-import EditContact from "common/components/Phonebook/EditContact";
+import Modal from "common/components/phonebook/Modal";
+import EditContact from "common/components/phonebook/EditContact";
 
 export default function ContactList() {
-  const {
-    data: contacts,
-    isFetching,
-    isLoading,
-  } = useGetAllContactsQuery("", {
+  const { data: contacts, isFetching } = useGetAllContactsQuery("", {
     // pollingInterval: 3000,
     // skip: false,
     refetchOnMountOrArgChange: true,

@@ -1,6 +1,6 @@
 import AddContact from "./AddContact";
 import Filter from "./Filter";
-import ContactList from "./ContactList";
+import ContactList from "./ContactList/ContactList";
 
 function ImageFinder() {
   return (

@@ -1,6 +1,6 @@
-import Navigation from "common/components/Phonebook/Navigation";
-import AuthNav from "common/components/Phonebook/AuthNav";
-import UserMenu from "common/components/Phonebook/UserMenu";
+import Navigation from "common/components/navigation/Navigation";
+import AuthNav from "common/components/navigation/AuthNav";
+import UserMenu from "common/components/navigation/UserMenu";
 
 import { useSelector } from "react-redux";
 import { selectUserIsLoggedIn, selectUserToken } from "app/selectors";

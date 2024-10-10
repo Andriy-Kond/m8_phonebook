@@ -1,4 +1,4 @@
-import AppBar from "common/components/Phonebook/AppBar";
+import AppBar from "common/components/navigation/AppBar";
 import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
 

@@ -1,4 +1,4 @@
-import Phonebook from "common/components/Phonebook";
+import Phonebook from "common/components/phonebook";
 
 export default function ContactsPage() {
   return (
