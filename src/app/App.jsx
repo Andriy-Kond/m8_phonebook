@@ -19,7 +19,7 @@ export default function App() {
   const dispatch = useDispatch();
   const authUserToken = useSelector(selectUserToken);
 
-  const { isSuccess } = useGetUserByTokenQuery(undefined, {
+  const { isSuccess, isFetching } = useGetUserByTokenQuery(undefined, {
     skip: !authUserToken, // Пропускає запит, якщо токен відсутній
   });
 
@@ -33,22 +33,25 @@ export default function App() {
 
   return (
     <>
-      <Routes>
-        <Route path="/" element={<SharedLayout />}>
-          <Route index element={<HomePage />} />
-          <Route path="/register" element={<RegisterPage />} />
+      {/* Перевірка !isFetching && - щоб при залогіненому користувачі не мигала спочатку сторінка Login і потім Contacts */}
+      {!isFetching && (
+        <Routes>
+          <Route path="/" element={<SharedLayout />}>
+            <Route index element={<HomePage />} />
 
-          <Route element={<PrivateRoute />}>
-            <Route path="/contacts" element={<ContactsPage />} />
+            <Route element={<PrivateRoute redirectTo="/login" />}>
+              <Route path="/contacts" element={<ContactsPage />} />
+            </Route>
+
+            <Route element={<PublicRoute redirectTo="/contacts" />}>
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/login" element={<LoginPage />} />
+            </Route>
+
+            <Route path="*" element={<NotFoundPage />} />
           </Route>
-
-          <Route element={<PublicRoute />}>
-            <Route path="/login" element={<LoginPage />} />
-          </Route>
-
-          <Route path="*" element={<NotFoundPage />} />
-        </Route>
-      </Routes>
+        </Routes>
+      )}
     </>
   );
 }
