@@ -1,0 +1,11 @@
+{
+  "files": {
+    "main.js": "/m8_phonebook/static/js/main.c9dc00dd.js",
+    "static/media/pending-cat.jpg": "/m8_phonebook/static/media/pending-cat.65c0e5b4ad7301d689bb.jpg",
+    "index.html": "/m8_phonebook/index.html",
+    "main.c9dc00dd.js.map": "/m8_phonebook/static/js/main.c9dc00dd.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.c9dc00dd.js"
+  ]
+}
