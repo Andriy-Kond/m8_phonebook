@@ -7,6 +7,8 @@ import {
 } from "features/Users/UsersSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserToken } from "./selectors";
+import PrivateRoute from "common/components/navigation/PvivateRoute";
+import PublicRoute from "common/components/navigation/PublicRoute";
 
 const ContactsPage = lazy(() => import("common/pages/ContactsPage"));
 const RegisterPage = lazy(() => import("common/pages/RegisterPage"));
@@ -35,8 +37,15 @@ export default function App() {
         <Route path="/" element={<SharedLayout />}>
           <Route index element={<HomePage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/contacts" element={<ContactsPage />} />
+
+          <Route element={<PrivateRoute />}>
+            <Route path="/contacts" element={<ContactsPage />} />
+          </Route>
+
+          <Route element={<PublicRoute />}>
+            <Route path="/login" element={<LoginPage />} />
+          </Route>
+
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
