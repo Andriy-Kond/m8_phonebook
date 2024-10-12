@@ -5,6 +5,11 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { persistor, store } from "app/store";
 import { PersistGate } from "redux-persist/integration/react";
+import "@fontsource/roboto/300.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/roboto/500.css";
+import "@fontsource/roboto/700.css";
+import "index.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

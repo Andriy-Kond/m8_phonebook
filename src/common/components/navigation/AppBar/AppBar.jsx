@@ -1,4 +1,4 @@
-import Navigation from "common/components/navigation/Navigation";
+import NavigationMenu from "common/components/navigation/NavigationMenu";
 import AuthNav from "common/components/navigation/AuthNav";
 import UserMenu from "common/components/navigation/UserMenu";
 
@@ -15,7 +15,7 @@ export default function AppBar() {
         gap: "20px",
         justifyContent: "space-between",
       }}>
-      <Navigation />
+      <NavigationMenu />
 
       {/* перевірка щоб при перезавантаженні сторінки при наявному токені не блимало спочатку AuthNav, а потім UserMenu: */}
       {isUserToken && isLoggedIn && <UserMenu />}
