@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import css from "../Navigation.module.scss";
 import clsx from "clsx";
+import { StyledNavLink } from "../Navigation.styled";
 
 // const style = ({ isActive, isPending, isTransitioning }) => {
 //   return {
@@ -43,16 +44,9 @@ export default function NavigationMenu() {
   return (
     <>
       <div style={{ display: "flex", gap: "10px" }}>
-        <NavLink
-          to="/"
-          className={({ isActive }) => clsx(css.link, isActive && css.active)}>
-          Home
-        </NavLink>
-        {isLoggedIn && (
-          <NavLink to="/contacts" className={css.link}>
-            Contacts
-          </NavLink>
-        )}
+        <StyledNavLink to="/">Home</StyledNavLink>
+
+        {isLoggedIn && <StyledNavLink to="/contacts">Contacts</StyledNavLink>}
 
         {/* <NavLink to="/" style={style}>
           Home

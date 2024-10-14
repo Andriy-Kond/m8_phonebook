@@ -7,6 +7,9 @@ import { selectFilters } from "app/selectors";
 import { useState } from "react";
 import Modal from "common/components/phonebook/Modal";
 import EditContact from "common/components/phonebook/EditContact";
+import { Button, ButtonGroup } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 
 export default function ContactList() {
   const { data: contacts, isFetching } = useGetAllContactsQuery("", {
@@ -44,17 +47,19 @@ export default function ContactList() {
                 <p>
                   {contact.name}: {contact.number}
                 </p>
-                <button onClick={() => removeContact(contact.id)}>
-                  Delete
-                </button>
 
-                <button
-                  type="button"
-                  onClick={() => {
-                    toggleModal(contact);
-                  }}>
-                  Edit
-                </button>
+                <ButtonGroup variant="text" aria-label="Basic button group">
+                  <Button
+                    onClick={() => {
+                      toggleModal(contact);
+                    }}>
+                    <EditIcon />
+                  </Button>
+
+                  <Button onClick={() => removeContact(contact.id)}>
+                    <DeleteIcon />
+                  </Button>
+                </ButtonGroup>
               </li>
             );
           })}

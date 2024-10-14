@@ -1,4 +1,8 @@
+import { AccountCircle } from "@mui/icons-material";
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import { Box, Fab, TextField } from "@mui/material";
 import { useState } from "react";
+import PhoneEnabledRoundedIcon from "@mui/icons-material/PhoneEnabledRounded";
 
 export default function ContactForm({
   contact = "",
@@ -35,28 +39,42 @@ export default function ContactForm({
           handleContact(e, name, number);
           clearState();
         }}>
-        <label>
-          Name
-          <input
+        <Box sx={{ display: "flex", alignItems: "flex-end" }}>
+          <AccountCircle sx={{ color: "action.active", mr: 1, my: 0.5 }} />
+          <TextField
+            label="Name"
+            placeholder="Enter NAME here"
+            multiline
+            variant="standard"
             type="text"
             name="name"
-            required
             value={name}
             onChange={modifyContact}
+            required
           />
-        </label>
+        </Box>
 
-        <label>
-          Telephone
-          <input
+        <Box sx={{ display: "flex", alignItems: "flex-end" }}>
+          <PhoneEnabledRoundedIcon
+            sx={{ color: "action.active", mr: 1, my: 0.5 }}
+          />
+          <TextField
+            id="standard-textarea"
+            label="Phone"
+            placeholder="Enter PHONE here"
+            multiline
+            variant="standard"
             type="tel"
             name="number"
-            required
+            // required
             value={number}
             onChange={modifyContact}
           />
-        </label>
-        <button type="submit">{btnText}</button>
+        </Box>
+
+        <Fab color="primary" aria-label="add" type="submit">
+          <AddOutlinedIcon />
+        </Fab>
       </form>
     </>
   );
