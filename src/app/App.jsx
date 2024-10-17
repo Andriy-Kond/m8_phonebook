@@ -1,14 +1,14 @@
 import { Route, Routes } from "react-router-dom";
-import { HomePage, SharedLayout } from "common/pages";
 import { lazy, useEffect } from "react";
-import {
-  setIsLoggedIn,
-  useGetUserByTokenQuery,
-} from "features/Users/UsersSlice";
 import { useDispatch, useSelector } from "react-redux";
+
 import { selectUserToken } from "./selectors";
+import { HomePage, SharedLayout } from "common/pages";
 import PrivateRoute from "common/components/navigation/PvivateRoute";
 import PublicRoute from "common/components/navigation/PublicRoute";
+
+import { setIsLoggedIn } from "features/auth/authSlice";
+import { useGetUserByTokenQuery } from "features/users/usersSlice";
 
 const ContactsPage = lazy(() => import("common/pages/ContactsPage"));
 const RegisterPage = lazy(() => import("common/pages/RegisterPage"));

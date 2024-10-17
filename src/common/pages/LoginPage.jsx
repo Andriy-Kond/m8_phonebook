@@ -1,11 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
+import { selectUserToken } from "app/selectors";
 import {
-  setIsLoggedIn,
-  setUserToken,
   useGetUserByTokenQuery,
   useLoginUserMutation,
-} from "features/Users/UsersSlice";
-import { selectUserToken } from "app/selectors";
+} from "features/users/usersSlice";
+import { setIsLoggedIn, setUserToken } from "features/auth/authSlice";
 
 export default function LoginPage() {
   const dispatch = useDispatch();

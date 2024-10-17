@@ -1,11 +1,10 @@
 import { selectUserToken } from "app/selectors";
+import { setIsLoggedIn, setUserToken } from "features/auth/authSlice";
 import {
-  setIsLoggedIn,
-  setUserToken,
   useGetUserByTokenQuery,
   useLogoutUserMutation,
   usersApi,
-} from "features/Users/UsersSlice";
+} from "features/users/usersSlice";
 
 import avatar from "imgs/pending-cat.jpg";
 

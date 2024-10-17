@@ -1,4 +1,5 @@
-import { setUserToken, useSignupUserMutation } from "features/Users/UsersSlice";
+import { setUserToken } from "features/auth/authSlice";
+import { useSignupUserMutation } from "features/users/usersSlice";
 import { useDispatch } from "react-redux";
 
 export default function RegisterPage() {
