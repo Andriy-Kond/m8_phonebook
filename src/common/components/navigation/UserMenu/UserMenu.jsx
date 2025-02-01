@@ -4,7 +4,7 @@ import {
   useGetUserByTokenQuery,
   useLogoutUserMutation,
   usersApi,
-} from "features/users/usersSlice";
+} from "features/Users/usersSlice";
 
 import avatar from "imgs/pending-cat.jpg";
 

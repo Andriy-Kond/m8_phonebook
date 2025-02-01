@@ -15,7 +15,7 @@ import { persistedUserAuthReducer } from "features/auth/authSlice";
 
 import { contactsApi } from "features/contacts/contactsSlice";
 import { filtersSlice } from "features/filters/filtersSlice";
-import { usersApi } from "features/users/usersSlice";
+import { usersApi } from "features/Users/usersSlice";
 
 export const store = configureStore({
   reducer: {

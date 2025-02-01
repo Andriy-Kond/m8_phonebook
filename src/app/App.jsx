@@ -8,7 +8,7 @@ import PrivateRoute from "common/components/navigation/PvivateRoute";
 import PublicRoute from "common/components/navigation/PublicRoute";
 
 import { setIsLoggedIn } from "features/auth/authSlice";
-import { useGetUserByTokenQuery } from "features/users/usersSlice";
+import { useGetUserByTokenQuery } from "features/Users/usersSlice";
 
 const ContactsPage = lazy(() => import("common/pages/ContactsPage"));
 const RegisterPage = lazy(() => import("common/pages/RegisterPage"));

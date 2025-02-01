@@ -3,7 +3,7 @@ import { selectUserToken } from "app/selectors";
 import {
   useGetUserByTokenQuery,
   useLoginUserMutation,
-} from "features/users/usersSlice";
+} from "features/Users/usersSlice";
 import { setIsLoggedIn, setUserToken } from "features/auth/authSlice";
 
 export default function LoginPage() {
